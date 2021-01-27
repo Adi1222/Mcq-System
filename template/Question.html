@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>This is the question page</p>
+<form method="post">
+    {%csrf_token%}
+    {{ question.question }}
+    <table>
+        <tr>
+            <td><input type="radio" name="options" value="{{question.option1}}" ></td><td>{{ question.option1 }}
+            <td><input type="radio" name="options" value="{{question.option2}}" ></td><td>{{ question.option2 }}
+            <td><input type="radio" name="options" value="{{question.option3}}" ></td><td>{{ question.option3 }}
+            <td><input type="radio" name="options" value="{{question.option4}}" ></td><td>{{ question.option4 }}
+        </td></tr>
+    </table>
+    <p>Score   :  {{ profile.score }} </p>
+    <p>Counter   : {{ profile.counter }} </p>
+    <p>Lifeline : {{profile.lifeline1}} </p>
+    <br>
+    {% if profile.lifeline1 %}
+    <button type="submit" formaction="lifeline/{{ question.id }}/">Submit your response</button>
+    {% else %}
+    <button type="submit" formaction="answer/{{ question.id }}/">Submit your response</button>
+    {% endif %}
+    {%if profile.counter > 3 %}
+    <button type="submit" formaction="activate/" >Activate Lifeline</button>
+    {% endif %}
+    <button type="submit" name="logout" formaction="logout/">Exit</button>
+
+</form>
+</body>
+</html>
